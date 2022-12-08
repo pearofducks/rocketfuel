@@ -10,8 +10,5 @@ export default defineBuildConfig({
     'src/variants',
   ],
   clean: true,
-  declaration: true,
-  rollup: {
-    emitCJS: true,
-  },
+  declaration: true
 })

@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"build": "tsc"
+		"build": "unbuild"
 	},
 	"dependencies": {
 		"@unocss/core": "^0.47.5"
