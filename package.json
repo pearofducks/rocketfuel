@@ -1,13 +1,12 @@
 {
 	"scripts": {
-		"build": "unbuild"
+		"build": "tsc"
 	},
 	"dependencies": {
 		"@unocss/core": "^0.47.5"
 	},
 	"devDependencies": {
 		"@types/node": "^18.11.11",
-		"typescript": "^4.9.4",
-		"unbuild": "^1.0.2"
+		"typescript": "^4.9.4"
 	}
 }
