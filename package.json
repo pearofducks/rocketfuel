@@ -1,12 +1,9 @@
 {
+	"type": "module",
 	"scripts": {
-		"build": "tsc"
+    "dev": "node --experimental-specifier-resolution=node dev.js"
 	},
 	"dependencies": {
 		"@unocss/core": "^0.47.5"
-	},
-	"devDependencies": {
-		"@types/node": "^18.11.11",
-		"typescript": "^4.9.4"
 	}
 }
