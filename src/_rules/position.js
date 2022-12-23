@@ -83,8 +83,7 @@ export const placements = [
     ...makeGlobalStaticRules('place-self'),
 ];
 function handleInsetValue(v, { theme }) {
-    var _a, _b;
-    return (_b = (_a = theme.spacing) === null || _a === void 0 ? void 0 : _a[v]) !== null && _b !== void 0 ? _b : h.bracket.cssvar.global.auto.fraction.rem(v);
+    return theme.spacing?.[v] ?? h.bracket.cssvar.global.auto.fraction.rem(v);
 }
 function handleInsetValues([, d, v], ctx) {
     const r = handleInsetValue(v, ctx);

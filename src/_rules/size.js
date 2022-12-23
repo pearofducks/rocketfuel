@@ -9,9 +9,8 @@ function getPropName(minmax, hw) {
     return `${minmax || ''}${sizeMapping[hw]}`;
 }
 function getSizeValue(minmax, hw, theme, prop) {
-    var _a;
     const str = getPropName(minmax, hw).replace(/-(\w)/g, (_, p) => p.toUpperCase());
-    const v = (_a = theme[str]) === null || _a === void 0 ? void 0 : _a[prop];
+    const v = theme[str]?.[prop];
     if (v != null)
         return v;
     switch (prop) {
@@ -32,8 +31,8 @@ export const sizes = [
                 '(max|min)-(w|h|block|inline)-$width|height|maxWidth|maxHeight|minWidth|minHeight|inlineSize|blockSize|maxInlineSize|maxBlockSize|minInlineSize|minBlockSize',
             ],
         }],
-    [/^(min-|max-)?(h)-screen-(.+)$/, ([, m, w, s], context) => { var _a; return ({ [getPropName(m, w)]: (_a = resolveVerticalBreakpoints(context)) === null || _a === void 0 ? void 0 : _a[s] }); }],
-    [/^(min-|max-)?(w)-screen-(.+)$/, ([, m, w, s], context) => { var _a; return ({ [getPropName(m, w)]: (_a = resolveBreakpoints(context)) === null || _a === void 0 ? void 0 : _a[s] }); }, {
+    [/^(min-|max-)?(h)-screen-(.+)$/, ([, m, w, s], context) => ({ [getPropName(m, w)]: resolveVerticalBreakpoints(context)?.[s] })],
+    [/^(min-|max-)?(w)-screen-(.+)$/, ([, m, w, s], context) => ({ [getPropName(m, w)]: resolveBreakpoints(context)?.[s] }), {
             autocomplete: [
                 '(w|h)-screen',
                 '(min|max)-(w|h)-screen',

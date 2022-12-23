@@ -39,9 +39,8 @@ export const variantParentMatcher = (name, parent) => {
     };
 };
 export const variantGetBracket = (prefix, matcher, separators) => {
-    var _a;
     if (matcher.startsWith(`${prefix}[`)) {
-        const [match, rest] = (_a = getBracket(matcher.slice(prefix.length), '[', ']')) !== null && _a !== void 0 ? _a : [];
+        const [match, rest] = getBracket(matcher.slice(prefix.length), '[', ']') ?? [];
         if (match && rest) {
             for (const separator of separators) {
                 if (rest.startsWith(separator))
@@ -52,11 +51,10 @@ export const variantGetBracket = (prefix, matcher, separators) => {
     }
 };
 export const variantGetParameter = (prefix, matcher, separators) => {
-    var _a;
     if (matcher.startsWith(prefix)) {
         const body = variantGetBracket(prefix, matcher, separators);
         if (body) {
-            const [label = '', rest = body[1]] = (_a = variantGetParameter('/', body[1], separators)) !== null && _a !== void 0 ? _a : [];
+            const [label = '', rest = body[1]] = variantGetParameter('/', body[1], separators) ?? [];
             return [body[0], rest, label];
         }
         for (const separator of separators.filter(x => x !== '/')) {

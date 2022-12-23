@@ -16,16 +16,15 @@ export const fonts = [
     // family
     [
         /^font-(.+)$/,
-        ([, d], { theme }) => { var _a; return ({ 'font-family': ((_a = theme.fontFamily) === null || _a === void 0 ? void 0 : _a[d]) || h.bracket.cssvar.global(d) }); },
+        ([, d], { theme }) => ({ 'font-family': theme.fontFamily?.[d] || h.bracket.cssvar.global(d) }),
         { autocomplete: 'font-$fontFamily' },
     ],
     // size
     [
         /^text-(.+)$/,
         ([, s = 'base'], { theme }) => {
-            var _a;
-            const themed = toArray((_a = theme.fontSize) === null || _a === void 0 ? void 0 : _a[s]);
-            if (themed === null || themed === void 0 ? void 0 : themed[0]) {
+            const themed = toArray(theme.fontSize?.[s]);
+            if (themed?.[0]) {
                 const [size, height = '1'] = themed;
                 return {
                     'font-size': size,
@@ -37,9 +36,8 @@ export const fonts = [
         { autocomplete: 'text-$fontSize' },
     ],
     [/^text-size-(.+)$/, ([, s], { theme }) => {
-            var _a, _b;
-            const themed = toArray((_a = theme.fontSize) === null || _a === void 0 ? void 0 : _a[s]);
-            const size = (_b = themed === null || themed === void 0 ? void 0 : themed[0]) !== null && _b !== void 0 ? _b : h.bracket.cssvar.global.rem(s);
+            const themed = toArray(theme.fontSize?.[s]);
+            const size = themed?.[0] ?? h.bracket.cssvar.global.rem(s);
             if (size != null)
                 return { 'font-size': size };
         }, { autocomplete: 'text-size-$fontSize' }],
@@ -52,7 +50,7 @@ export const fonts = [
     // leadings
     [
         /^(?:font-)?(?:leading|lh)-(.+)$/,
-        ([, s], { theme }) => { var _a; return ({ 'line-height': ((_a = theme.lineHeight) === null || _a === void 0 ? void 0 : _a[s]) || h.bracket.cssvar.global.rem(s) }); },
+        ([, s], { theme }) => ({ 'line-height': theme.lineHeight?.[s] || h.bracket.cssvar.global.rem(s) }),
         { autocomplete: '(leading|lh)-$lineHeight' },
     ],
     // synthesis
@@ -64,13 +62,13 @@ export const fonts = [
     // tracking
     [
         /^(?:font-)?tracking-(.+)$/,
-        ([, s], { theme }) => { var _a; return ({ 'letter-spacing': ((_a = theme.letterSpacing) === null || _a === void 0 ? void 0 : _a[s]) || h.bracket.cssvar.global.rem(s) }); },
+        ([, s], { theme }) => ({ 'letter-spacing': theme.letterSpacing?.[s] || h.bracket.cssvar.global.rem(s) }),
         { autocomplete: 'tracking-$letterSpacing' },
     ],
     // word-spacing
     [
         /^(?:font-)?word-spacing-(.+)$/,
-        ([, s], { theme }) => { var _a; return ({ 'word-spacing': ((_a = theme.wordSpacing) === null || _a === void 0 ? void 0 : _a[s]) || h.bracket.cssvar.global.rem(s) }); },
+        ([, s], { theme }) => ({ 'word-spacing': theme.wordSpacing?.[s] || h.bracket.cssvar.global.rem(s) }),
         { autocomplete: 'word-spacing-$wordSpacing' },
     ],
 ];
@@ -87,19 +85,18 @@ export const tabSizes = [
         }],
 ];
 export const textIndents = [
-    [/^indent(?:-(.+))?$/, ([, s], { theme }) => { var _a; return ({ 'text-indent': ((_a = theme.textIndent) === null || _a === void 0 ? void 0 : _a[s || 'DEFAULT']) || h.bracket.cssvar.global.fraction.rem(s) }); }, { autocomplete: 'indent-$textIndent' }],
+    [/^indent(?:-(.+))?$/, ([, s], { theme }) => ({ 'text-indent': theme.textIndent?.[s || 'DEFAULT'] || h.bracket.cssvar.global.fraction.rem(s) }), { autocomplete: 'indent-$textIndent' }],
 ];
 export const textStrokes = [
     // widths
-    [/^text-stroke(?:-(.+))?$/, ([, s], { theme }) => { var _a; return ({ '-webkit-text-stroke-width': ((_a = theme.textStrokeWidth) === null || _a === void 0 ? void 0 : _a[s || 'DEFAULT']) || h.bracket.cssvar.px(s) }); }, { autocomplete: 'text-stroke-$textStrokeWidth' }],
+    [/^text-stroke(?:-(.+))?$/, ([, s], { theme }) => ({ '-webkit-text-stroke-width': theme.textStrokeWidth?.[s || 'DEFAULT'] || h.bracket.cssvar.px(s) }), { autocomplete: 'text-stroke-$textStrokeWidth' }],
     // colors
     [/^text-stroke-(.+)$/, colorResolver('-webkit-text-stroke-color', 'text-stroke'), { autocomplete: 'text-stroke-$colors' }],
     [/^text-stroke-op(?:acity)?-?(.+)$/, ([, opacity]) => ({ '--un-text-stroke-opacity': h.bracket.percent(opacity) }), { autocomplete: 'text-stroke-(op|opacity)-<percent>' }],
 ];
 export const textShadows = [
     [/^text-shadow(?:-(.+))?$/, ([, s], { theme }) => {
-            var _a;
-            const v = (_a = theme.textShadow) === null || _a === void 0 ? void 0 : _a[s || 'DEFAULT'];
+            const v = theme.textShadow?.[s || 'DEFAULT'];
             if (v != null) {
                 return {
                     '--un-text-shadow': colorableShadows(v, '--un-text-shadow-color').join(','),

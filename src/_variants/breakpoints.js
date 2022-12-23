@@ -1,8 +1,7 @@
 import { resolveBreakpoints } from '../utils';
 const regexCache = {};
 export const calcMaxWidthBySize = (size) => {
-    var _a;
-    const value = ((_a = size.match(/^-?[0-9]+\.?[0-9]*/)) === null || _a === void 0 ? void 0 : _a[0]) || '';
+    const value = size.match(/^-?[0-9]+\.?[0-9]*/)?.[0] || '';
     const unit = size.slice(value.length);
     const maxWidth = (parseFloat(value) - 0.1);
     return Number.isNaN(maxWidth) ? size : `${maxWidth}${unit}`;
@@ -10,8 +9,7 @@ export const calcMaxWidthBySize = (size) => {
 export const variantBreakpoints = {
     name: 'breakpoints',
     match(matcher, context) {
-        var _a;
-        const variantEntries = Object.entries((_a = resolveBreakpoints(context)) !== null && _a !== void 0 ? _a : {}).map(([point, size], idx) => [point, size, idx]);
+        const variantEntries = Object.entries(resolveBreakpoints(context) ?? {}).map(([point, size], idx) => [point, size, idx]);
         for (const [point, size, idx] of variantEntries) {
             if (!regexCache[point])
                 regexCache[point] = new RegExp(`^((?:[al]t-)?${point}[:-])`);

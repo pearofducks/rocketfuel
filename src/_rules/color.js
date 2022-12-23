@@ -12,7 +12,7 @@ export const opacity = [
 export const textColors = [
     [/^(?:color|c)-(.+)$/, colorResolver('color', 'text'), { autocomplete: '(text|color|c)-$colors' }],
     // auto detection and fallback to font-size if the content looks like a size
-    [/^text-(.+)$/, colorResolver('color', 'text', css => { var _a; return !((_a = css.color) === null || _a === void 0 ? void 0 : _a.toString().match(numberWithUnitRE)); }), { autocomplete: '(text|color|c)-$colors' }],
+    [/^text-(.+)$/, colorResolver('color', 'text', css => !css.color?.toString().match(numberWithUnitRE)), { autocomplete: '(text|color|c)-$colors' }],
     [/^(?:text|color|c)-op(?:acity)?-?(.+)$/, ([, opacity]) => ({ '--un-text-opacity': h.bracket.percent(opacity) }), { autocomplete: '(text|color|c)-(op|opacity)-<percent>' }],
 ];
 export const bgColors = [

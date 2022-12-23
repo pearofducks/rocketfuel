@@ -32,16 +32,15 @@ export function parseCssColor(str = '') {
     };
 }
 export function colorOpacityToString(color) {
-    var _a;
-    const alpha = (_a = color.alpha) !== null && _a !== void 0 ? _a : 1;
+    const alpha = color.alpha ?? 1;
     return typeof alpha === 'string' && alphaPlaceholders.includes(alpha) ? 1 : alpha;
 }
 export function colorToString(color, alphaOverride) {
     if (typeof color === 'string')
-        return color.replace(alphaPlaceholdersRE, `${alphaOverride !== null && alphaOverride !== void 0 ? alphaOverride : 1}`);
+        return color.replace(alphaPlaceholdersRE, `${alphaOverride ?? 1}`);
     const { components } = color;
     let { alpha, type } = color;
-    alpha = alphaOverride !== null && alphaOverride !== void 0 ? alphaOverride : alpha;
+    alpha = alphaOverride ?? alpha;
     type = type.toLowerCase();
     // Comma separated functions
     if (['hsla', 'hsl', 'rgba', 'rgb'].includes(type))

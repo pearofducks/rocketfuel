@@ -81,8 +81,7 @@ function handlerBorder(m, ctx) {
     }
 }
 function handlerBorderSize([, a = '', b], { theme }) {
-    var _a, _b;
-    const v = (_b = (_a = theme.lineWidth) === null || _a === void 0 ? void 0 : _a[b || 'DEFAULT']) !== null && _b !== void 0 ? _b : h.bracket.cssvar.global.px(b || '1');
+    const v = theme.lineWidth?.[b || 'DEFAULT'] ?? h.bracket.cssvar.global.px(b || '1');
     if (a in directionMap && v != null)
         return directionMap[a].map(i => [`border${i}-width`, v]);
 }
@@ -97,8 +96,7 @@ function handlerBorderOpacity([, a = '', opacity]) {
         return directionMap[a].map(i => [`--un-border${i}-opacity`, v]);
 }
 function handlerRounded([, a = '', s], { theme }) {
-    var _a;
-    const v = ((_a = theme.borderRadius) === null || _a === void 0 ? void 0 : _a[s || 'DEFAULT']) || h.bracket.cssvar.global.fraction.rem(s || '1');
+    const v = theme.borderRadius?.[s || 'DEFAULT'] || h.bracket.cssvar.global.fraction.rem(s || '1');
     if (a in cornerMap && v != null)
         return cornerMap[a].map(i => [`border${i}-radius`, v]);
 }

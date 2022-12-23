@@ -47,7 +47,7 @@ export const transformBase = {
 };
 export const transforms = [
     // origins
-    [/^(?:transform-)?origin-(.+)$/, ([, s]) => { var _a; return ({ 'transform-origin': (_a = positionMap[s]) !== null && _a !== void 0 ? _a : h.bracket.cssvar(s) }); }, { autocomplete: [`transform-origin-(${Object.keys(positionMap).join('|')})`, `origin-(${Object.keys(positionMap).join('|')})`] }],
+    [/^(?:transform-)?origin-(.+)$/, ([, s]) => ({ 'transform-origin': positionMap[s] ?? h.bracket.cssvar(s) }), { autocomplete: [`transform-origin-(${Object.keys(positionMap).join('|')})`, `origin-(${Object.keys(positionMap).join('|')})`] }],
     // perspectives
     [/^(?:transform-)?perspect(?:ive)?-(.+)$/, ([, s]) => {
             const v = h.bracket.cssvar.px.numberWithUnit(s);
@@ -60,8 +60,7 @@ export const transforms = [
         }],
     // skip 1 & 2 letters shortcut
     [/^(?:transform-)?perspect(?:ive)?-origin-(.+)$/, ([, s]) => {
-            var _a;
-            const v = (_a = h.bracket.cssvar(s)) !== null && _a !== void 0 ? _a : (s.length >= 3 ? positionMap[s] : undefined);
+            const v = h.bracket.cssvar(s) ?? (s.length >= 3 ? positionMap[s] : undefined);
             if (v != null) {
                 return {
                     '-webkit-perspective-origin': v,
@@ -88,8 +87,7 @@ export const transforms = [
     ...makeGlobalStaticRules('transform'),
 ];
 function handleTranslate([, d, b], { theme }) {
-    var _a, _b;
-    const v = (_b = (_a = theme.spacing) === null || _a === void 0 ? void 0 : _a[b]) !== null && _b !== void 0 ? _b : h.bracket.cssvar.fraction.rem(b);
+    const v = theme.spacing?.[b] ?? h.bracket.cssvar.fraction.rem(b);
     if (v != null) {
         return [
             ...xyzMap[d].map((i) => [`--un-translate${i}`, v]),

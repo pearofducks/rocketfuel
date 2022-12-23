@@ -28,7 +28,7 @@ export const contains = [
     [/^contain-(.*)$/, ([, d]) => {
             if (h.bracket(d) != null) {
                 return {
-                    contain: h.bracket(d).split(' ').map(e => { var _a; return (_a = h.cssvar.fraction(e)) !== null && _a !== void 0 ? _a : e; }).join(' '),
+                    contain: h.bracket(d).split(' ').map(e => h.cssvar.fraction(e) ?? e).join(' '),
                 };
             }
             return containValues.includes(d) ? { contain: d } : undefined;

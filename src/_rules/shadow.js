@@ -9,10 +9,9 @@ export const boxShadowsBase = {
 export const boxShadows = [
     // color
     [/^shadow(?:-(.+))?$/, (match, context) => {
-            var _a;
             const [, d] = match;
             const { theme } = context;
-            const v = ((_a = theme.boxShadow) === null || _a === void 0 ? void 0 : _a[d || 'DEFAULT']) || h.bracket.cssvar(d);
+            const v = theme.boxShadow?.[d || 'DEFAULT'] || h.bracket.cssvar(d);
             if (v) {
                 return {
                     '--un-shadow': colorableShadows(v, '--un-shadow-color').join(','),

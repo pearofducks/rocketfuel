@@ -3,7 +3,7 @@ import presetRocketfuel from './src/index.js'
 
 const uno = createGenerator({
   presets: [
-    presetRocketfuel({ preflight: true })
+    presetRocketfuel({ prefix: '-llama' })
   ]
 })
 

@@ -3,7 +3,6 @@ import { handler as h, variantGetParameter } from '../utils';
 export const variantContainerQuery = {
     name: '@',
     match(matcher, { theme }) {
-        var _a, _b;
         if (matcher.startsWith('@container'))
             return;
         const variant = variantGetParameter('@', matcher, [':', '-']);
@@ -17,7 +16,7 @@ export const variantContainerQuery = {
                     container = `(min-width: ${minWidth})`;
             }
             else {
-                container = (_b = (_a = theme.containers) === null || _a === void 0 ? void 0 : _a[match]) !== null && _b !== void 0 ? _b : '';
+                container = theme.containers?.[match] ?? '';
             }
             if (container) {
                 warnOnce('The container query variant is experimental and may not follow semver.');

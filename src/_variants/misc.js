@@ -18,11 +18,10 @@ export const variantSelector = {
 export const variantCssLayer = {
     name: 'layer',
     match(matcher) {
-        var _a;
         const variant = variantGetParameter('layer-', matcher, [':', '-']);
         if (variant) {
             const [match, rest] = variant;
-            const layer = (_a = h.bracket(match)) !== null && _a !== void 0 ? _a : match;
+            const layer = h.bracket(match) ?? match;
             if (layer) {
                 return {
                     matcher: rest,
@@ -38,11 +37,10 @@ export const variantCssLayer = {
 export const variantInternalLayer = {
     name: 'uno-layer',
     match(matcher) {
-        var _a;
         const variant = variantGetParameter('uno-layer-', matcher, [':', '-']);
         if (variant) {
             const [match, rest] = variant;
-            const layer = (_a = h.bracket(match)) !== null && _a !== void 0 ? _a : match;
+            const layer = h.bracket(match) ?? match;
             if (layer) {
                 return {
                     matcher: rest,
@@ -71,10 +69,9 @@ export const variantScope = {
 export const variantVariables = {
     name: 'variables',
     match(matcher) {
-        var _a, _b;
         if (!matcher.startsWith('['))
             return;
-        const [match, rest] = (_a = getBracket(matcher, '[', ']')) !== null && _a !== void 0 ? _a : [];
+        const [match, rest] = getBracket(matcher, '[', ']') ?? [];
         if (!(match && rest))
             return;
         let newMatcher;
@@ -86,7 +83,7 @@ export const variantVariables = {
         }
         if (newMatcher == null)
             return;
-        const variant = (_b = h.bracket(match)) !== null && _b !== void 0 ? _b : '';
+        const variant = h.bracket(match) ?? '';
         const useParent = variant.startsWith('@');
         if (!(useParent || variant.includes('&')))
             return;

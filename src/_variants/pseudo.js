@@ -74,7 +74,6 @@ const taggedPseudoClassMatcher = (tag, parent, combinator) => {
     const pseudoRE = new RegExp(`^${tag}-(?:(?:(${PseudoClassFunctionsStr})-)?(${PseudoClassesStr}))(?:(/\\w+))?[:-]`);
     const pseudoColonRE = new RegExp(`^${tag}-(?:(?:(${PseudoClassFunctionsStr})-)?(${PseudoClassesColonStr}))(?:(/\\w+))?[:]`);
     const matchBracket = (input) => {
-        var _a, _b;
         const body = variantGetBracket(`${tag}-`, input, []);
         if (!body)
             return;
@@ -82,7 +81,7 @@ const taggedPseudoClassMatcher = (tag, parent, combinator) => {
         const bracketValue = h.bracket(match);
         if (bracketValue == null)
             return;
-        const label = (_b = (_a = rest.split(/[:-]/, 1)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : '';
+        const label = rest.split(/[:-]/, 1)?.[0] ?? '';
         const prefix = `${parent}${escapeSelector(label)}`;
         return [
             label,
@@ -91,12 +90,11 @@ const taggedPseudoClassMatcher = (tag, parent, combinator) => {
         ];
     };
     const matchPseudo = (input) => {
-        var _a;
         const match = input.match(pseudoRE) || input.match(pseudoColonRE);
         if (!match)
             return;
         const [original, fn, pseudoKey] = match;
-        const label = (_a = match[3]) !== null && _a !== void 0 ? _a : '';
+        const label = match[3] ?? '';
         let pseudo = PseudoClasses[pseudoKey] || PseudoClassesColon[pseudoKey] || `:${pseudoKey}`;
         if (fn)
             pseudo = `:${fn}(${pseudo})`;
@@ -180,7 +178,7 @@ export const variantPseudoClassFunctions = {
     autocomplete: `(${PseudoClassFunctionsStr})-(${PseudoClassesStr}|${PseudoClassesColonStr}):`,
 };
 export const variantTaggedPseudoClasses = (options = {}) => {
-    const attributify = !!(options === null || options === void 0 ? void 0 : options.attributifyPseudo);
+    const attributify = !!options?.attributifyPseudo;
     return [
         taggedPseudoClassMatcher('group', attributify ? '[group=""]' : '.group', ' '),
         taggedPseudoClassMatcher('peer', attributify ? '[peer=""]' : '.peer', '~'),

@@ -4,10 +4,9 @@ const ignoreProps = [
     /opacity|color|flex/,
 ];
 const negateFunctions = (value) => {
-    var _a;
     const match = value.match(/^(calc|clamp|max|min)\s*(\(.*)/);
     if (match) {
-        const [fnBody, rest] = (_a = getComponent(match[2], '(', ')', ' ')) !== null && _a !== void 0 ? _a : [];
+        const [fnBody, rest] = getComponent(match[2], '(', ')', ' ') ?? [];
         if (fnBody)
             return `calc(${match[1]}${fnBody} * -1)${rest ? ` ${rest}` : ''}`;
     }
@@ -24,8 +23,7 @@ export const variantNegative = {
                     return;
                 let changed = false;
                 body.forEach((v) => {
-                    var _a;
-                    const value = (_a = v[1]) === null || _a === void 0 ? void 0 : _a.toString();
+                    const value = v[1]?.toString();
                     if (!value || value === '0')
                         return;
                     if (ignoreProps.some(i => v[0].match(i)))

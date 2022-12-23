@@ -2,7 +2,6 @@ import { handler as h, variantGetBracket } from '../utils';
 const scopeMatcher = (name, combinator) => ({
     name: `combinator:${name}`,
     match(matcher) {
-        var _a;
         if (!matcher.startsWith(name))
             return;
         let body = variantGetBracket(`${name}-`, matcher, [':', '-']);
@@ -16,7 +15,7 @@ const scopeMatcher = (name, combinator) => ({
             if (!body)
                 return;
         }
-        let bracketValue = (_a = h.bracket(body[0])) !== null && _a !== void 0 ? _a : '';
+        let bracketValue = h.bracket(body[0]) ?? '';
         if (bracketValue === '')
             bracketValue = '*';
         return {

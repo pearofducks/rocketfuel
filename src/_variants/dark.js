@@ -1,6 +1,6 @@
 import { variantMatcher, variantParentMatcher } from '../utils';
 export const variantColorsMediaOrClass = (options = {}) => {
-    if ((options === null || options === void 0 ? void 0 : options.dark) === 'class' || typeof options.dark === 'object') {
+    if (options?.dark === 'class' || typeof options.dark === 'object') {
         const { dark = '.dark', light = '.light' } = typeof options.dark === 'string'
             ? {}
             : options.dark;

@@ -11,8 +11,7 @@ export const ringBase = {
 export const rings = [
     // size
     [/^ring(?:-(.+))?$/, ([, d], { theme }) => {
-            var _a, _b;
-            const value = (_b = (_a = theme.ringWidth) === null || _a === void 0 ? void 0 : _a[d || 'DEFAULT']) !== null && _b !== void 0 ? _b : h.px(d || '1');
+            const value = theme.ringWidth?.[d || 'DEFAULT'] ?? h.px(d || '1');
             if (value) {
                 return {
                     '--un-ring-width': value,
@@ -22,10 +21,10 @@ export const rings = [
                 };
             }
         }, { autocomplete: 'ring-$ringWidth' }],
-    [/^ring-(?:width-|size-)(.+)$/, ([, d], { theme }) => { var _a, _b; return ({ '--un-ring-width': (_b = (_a = theme.lineWidth) === null || _a === void 0 ? void 0 : _a[d]) !== null && _b !== void 0 ? _b : h.bracket.cssvar.px(d) }); }, { autocomplete: 'ring-(width|size)-$lineWidth' }],
+    [/^ring-(?:width-|size-)(.+)$/, ([, d], { theme }) => ({ '--un-ring-width': theme.lineWidth?.[d] ?? h.bracket.cssvar.px(d) }), { autocomplete: 'ring-(width|size)-$lineWidth' }],
     // offset size
     ['ring-offset', { '--un-ring-offset-width': '1px' }],
-    [/^ring-offset-(?:width-|size-)?(.+)$/, ([, d], { theme }) => { var _a, _b; return ({ '--un-ring-offset-width': (_b = (_a = theme.lineWidth) === null || _a === void 0 ? void 0 : _a[d]) !== null && _b !== void 0 ? _b : h.bracket.cssvar.px(d) }); }, { autocomplete: 'ring-offset-(width|size)-$lineWidth' }],
+    [/^ring-offset-(?:width-|size-)?(.+)$/, ([, d], { theme }) => ({ '--un-ring-offset-width': theme.lineWidth?.[d] ?? h.bracket.cssvar.px(d) }), { autocomplete: 'ring-offset-(width|size)-$lineWidth' }],
     // colors
     [/^ring-(.+)$/, colorResolver('--un-ring-color', 'ring'), { autocomplete: 'ring-$colors' }],
     [/^ring-op(?:acity)?-?(.+)$/, ([, opacity]) => ({ '--un-ring-opacity': h.bracket.percent(opacity) }), { autocomplete: 'ring-(op|opacity)-<percent>' }],

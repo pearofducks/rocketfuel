@@ -11,8 +11,7 @@ export const CONTROL_MINI_NO_NEGATIVE = '$$mini-no-negative';
  */
 export function directionSize(propertyPrefix) {
     return ([_, direction, size], { theme }) => {
-        var _a, _b;
-        const v = (_b = (_a = theme.spacing) === null || _a === void 0 ? void 0 : _a[size || 'DEFAULT']) !== null && _b !== void 0 ? _b : h.bracket.cssvar.global.auto.fraction.rem(size);
+        const v = theme.spacing?.[size || 'DEFAULT'] ?? h.bracket.cssvar.global.auto.fraction.rem(size);
         if (v != null)
             return directionMap[direction].map(i => [`${propertyPrefix}${i}`, v]);
     };
@@ -108,7 +107,7 @@ export function parseColor(body, theme) {
         no,
         color,
         cssColor: parseCssColor(color),
-        alpha: h.bracket.cssvar.percent(opacity !== null && opacity !== void 0 ? opacity : ''),
+        alpha: h.bracket.cssvar.percent(opacity ?? ''),
     };
 }
 /**
@@ -156,7 +155,7 @@ export function colorResolver(property, varName, shouldPass) {
         else if (color) {
             css[property] = colorToString(color, alpha);
         }
-        if ((shouldPass === null || shouldPass === void 0 ? void 0 : shouldPass(css)) !== false)
+        if (shouldPass?.(css) !== false)
             return css;
     };
 }
@@ -176,8 +175,7 @@ export function colorableShadows(shadows, colorVar) {
     return colored;
 }
 export function hasParseableColor(color, theme) {
-    var _a;
-    return color != null && !!((_a = parseColor(color, theme)) === null || _a === void 0 ? void 0 : _a.color);
+    return color != null && !!parseColor(color, theme)?.color;
 }
 export function resolveBreakpoints({ theme, generator }) {
     let breakpoints;
@@ -196,7 +194,7 @@ export function resolveVerticalBreakpoints({ theme, generator }) {
     return verticalBreakpoints;
 }
 export function makeGlobalStaticRules(prefix, property) {
-    return globalKeywords.map(keyword => [`${prefix}-${keyword}`, { [property !== null && property !== void 0 ? property : prefix]: keyword }]);
+    return globalKeywords.map(keyword => [`${prefix}-${keyword}`, { [property ?? prefix]: keyword }]);
 }
 export function getBracket(str, open, close) {
     if (str === '')
@@ -267,7 +265,7 @@ export function getComponent(str, open, close, separators) {
     ];
 }
 export function getComponents(str, separators, limit) {
-    limit = limit !== null && limit !== void 0 ? limit : 10;
+    limit = limit ?? 10;
     const components = [];
     let i = 0;
     while (str !== '') {
