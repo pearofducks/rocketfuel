@@ -1,4 +1,4 @@
-import { isString, toArray } from '@unocss/core';
+import { isString, toArray, warnOnce } from '@unocss/core';
 import { colorOpacityToString, colorToString, parseCssColor } from './colors';
 import { handler as h } from './handlers';
 import { directionMap, globalKeywords } from './mappings';
@@ -11,6 +11,7 @@ export const CONTROL_MINI_NO_NEGATIVE = '$$mini-no-negative';
  */
 export function directionSize(propertyPrefix) {
     return ([_, direction, size], { theme }) => {
+        if (!theme.spacing[size]) return warnOnce(`${propertyPrefix} not available in size ${size}`)
         const v = theme.spacing?.[size || 'DEFAULT'] ?? h.bracket.cssvar.global.auto.fraction.rem(size);
         if (v != null)
             return directionMap[direction].map(i => [`${propertyPrefix}${i}`, v]);

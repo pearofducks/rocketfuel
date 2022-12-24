@@ -3,9 +3,9 @@ import presetRocketfuel from './src/index.js'
 
 const uno = createGenerator({
   presets: [
-    presetRocketfuel({ prefix: '-llama' })
+    presetRocketfuel({ preflight: false })
   ]
 })
 
-const result = await uno.generate(['sm:p-16'])
+const result = await uno.generate(['p-16'])
 console.log(result.css)

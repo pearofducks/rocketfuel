@@ -1,6 +1,8 @@
 import { directionSize } from '../utils';
+
+
 export const paddings = [
-    [/^pa?()-?(-?.+)$/, directionSize('padding'), { autocomplete: ['(m|p)<num>', '(m|p)-<num>'] }],
+    [/^pa?()-?(-?.+)$/, directionSize('padding'), { autocomplete: ['(m|p)<num>', '(m|p)-<num>'], core: true }],
     [/^p-?xy()()$/, directionSize('padding'), { autocomplete: '(m|p)-(xy)' }],
     [/^p-?([xy])(?:-?(-?.+))?$/, directionSize('padding')],
     [/^p-?([rltbse])(?:-?(-?.+))?$/, directionSize('padding'), { autocomplete: '(m|p)<directions>-<num>' }],

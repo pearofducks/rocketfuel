@@ -5,6 +5,16 @@ import { variants } from './variants';
 export { preflights } from './preflights';
 export { theme, colors } from './theme';
 export { parseColor } from './utils';
+
+// console.log({ rules })
+for (const r of rules) {
+  const lastProp = r.at(-1)
+  if (typeof lastProp === 'object' && lastProp.core) {
+    console.log("OMG", r)
+  }
+}
+
+/** @type {import('@unocss/core').Preset<object>} */
 export const presetMini = (options = {}) => {
   // options.dark = options.dark ?? 'class'; // we do not want to support darkmode via a class by default
   options.attributifyPseudo = options.attributifyPseudo ?? false;
