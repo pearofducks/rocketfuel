@@ -1,5 +1,6 @@
 import { createGenerator } from '@unocss/core'
 import presetRocketfuel from './src/index.js'
+import * as lightning from 'lightningcss'
 
 const uno = createGenerator({
   presets: [
@@ -7,5 +8,14 @@ const uno = createGenerator({
   ]
 })
 
-const result = await uno.generate(['p-16'])
+const result = await uno.generate(['p-xl', 'm-xl', 'bg-gray-300'])
 console.log(result.css)
+
+const { code } = lightning.transform({
+  code: Buffer.from(result.css),
+  minify: true,
+  // targets: {}
+})
+
+console.log("MINIFIED")
+console.log(code.toString())

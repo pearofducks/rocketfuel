@@ -1,9 +1,12 @@
 {
 	"type": "module",
 	"scripts": {
-    "dev": "node --experimental-specifier-resolution=node dev.js"
+		"dev": "node --experimental-specifier-resolution=node dev.js"
 	},
 	"dependencies": {
 		"@unocss/core": "^0.47.5"
+	},
+	"devDependencies": {
+		"lightningcss": "^1.17.1"
 	}
 }
